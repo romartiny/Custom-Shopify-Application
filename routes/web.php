@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminLogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('adminboard');
 })->middleware(['verify.shopify'])->name('home');
+
+Route::get('/admin-logs', [AdminLogController::class, 'showAdminLogs'])->name('adminLogs');
+Route::get('/theme-logs', [AdminLogController::class, 'showThemeLogs'])->name('themeLogs');
+Route::get('/important-logs', [AdminLogController::class, 'showImportantLogs'])->name('importantLogs');
+Route::get('/staff-logs', [AdminLogController::class, 'showStaffLogs'])->name('staffLogs');
