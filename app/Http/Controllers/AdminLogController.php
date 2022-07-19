@@ -2,32 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\Authenticate;
+use App\Http\Repository\AdminLogRepository;
 use Illuminate\Http\Request;
+use App\Models\AdminLog;
+use Illuminate\Support\Facades\Auth;
 
 class AdminLogController extends Controller
 {
-    public function showAdminDashboard()
+    private $_adminLogRepository;
+
+    public function __construct(AdminLogRepository $adminLogRepository)
     {
-        return view('adminboard');
+        $this->_adminLogRepository = $adminLogRepository;
+    }
+
+    public function authUser()
+    {
+        return Auth::user();
     }
 
     public function showAdminLogs()
     {
-        return view('adminlogs');
+        $adminLogs = $this->_adminLogRepository->getAdminLogs($this->authUser());
+
+        return view('adminlogs', [
+            'adminLogs' => $adminLogs['body']['container']['events']
+        ]);
     }
 
     public function showThemeLogs()
     {
-        return view('themelogs');
+        $themeLogs = $this->_adminLogRepository->getThemeLogs($this->authUser());
+
+        return view('themelogs', [
+            'themeLogs' => $themeLogs['body']['container']['themes']
+        ]);
     }
 
     public function showImportantLogs()
     {
-        return view('importantlogs');
+        $importantLogs = $this->_adminLogRepository->getImportantLogs($this->authUser());
+
+        return view('importantlogs', [
+            'importantLogs' => $importantLogs['body']['container']['events']
+        ]);
     }
 
     public function showStaffLogs()
     {
-        return view('stafflogs');
+        $staffLogs = $this->_adminLogRepository->getStaffLogs($this->authUser());
+
+        return view('stafflogs', [
+            'staffLogs' => $staffLogs['body']['container']['events']
+        ]);
     }
 }
