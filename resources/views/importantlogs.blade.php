@@ -40,12 +40,12 @@
     <script type="text/javascript">
         userDetails='';
         $('table tbody tr').each(function(){
-            var detail='(';
+            var detail='';
             $(this).find('td').each(function(){
-                detail+=$(this).html()+',';
+                detail+=$(this).html()+' | ';
             });
             detail=detail.substring(0,detail.length-1);
-            detail+=')';
+            detail+='';
             userDetails+=detail+"\r\n";
         });
         var a=document.getElementById('save');
@@ -53,7 +53,8 @@
             var a = document.getElementById("save");
             var file = new Blob([userDetails], {type: 'text/plain'});
             a.href = URL.createObjectURL(file);
-            a.download = "data.txt";
+            let utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+            a.download = 'importantlogs-' + utc + '.txt';
         }
     </script>
 @endsection
