@@ -365,11 +365,12 @@ return [
     */
 
     'scripttags' => [
-//            [
-//                'src' => env('SHOPIFY_SCRIPTTAG_1_SRC', env('APP_URL') . '/assets/css/style.css'),
-//                'event' => env('SHOPIFY_SCRIPTTAG_1_EVENT', 'onload'),
-//                'display_scope' => env('SHOPIFY_SCRIPTTAG_1_DISPLAY_SCOPE', 'online_store')
-//            ],
+            [
+                'src' => env('SHOPIFY_SCRIPTTAG_1_SRC', env('APP_URL') . '/assets/js/sort.js'),
+//                'src1' => env('SHOPIFY_STYLE_1_SRC', env('APP_URL') . '/assets/css/style.css'),
+                'event' => env('SHOPIFY_SCRIPTTAG_1_EVENT', 'onload'),
+                'display_scope' => env('SHOPIFY_SCRIPTTAG_1_DISPLAY_SCOPE', 'online_store')
+            ],
     ],
 
     /*

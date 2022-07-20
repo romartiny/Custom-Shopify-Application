@@ -1,53 +1,57 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Admin Dashboard</title>
-</head>
-<body>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <p class="navbar-brand">Custom-Admin-Application</p>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/admin-logs">Admin Logs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/theme-logs">Theme Logs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/important-logs">Important Event Logs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/staff-logs">Staff Logs</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
-<section class="table">
-    <table class="table table-dark">
-        <thead>
-        <tr>
-            <th scope="col">Event type</th>
-            <th scope="col">Time</th>
-            <th scope="col">Abstract</th>
-        </tr>
-        </thead>
-        @foreach($adminLogs as $adminLogs)
-            <tbody>
-            <td>{{ ucfirst($adminLogs['verb']) }}</td>
-            <td>{{ $adminLogs['created_at'] }}</td>
-            <td>{{ $adminLogs['description'] }}</td>
+@extends('shopify-app::layouts.default')
+@extends('layouts.header')
+@extends('layouts.head')
+@section('content')
+    <h1 class="text-center">ADMIN LOGS</h1>
+    <p class="text-center text-muted">All actions about orders, refunds, products and clients</p>
+    <div class="navbar-nav ml-auto mx-auto">
+        <a class="text-center link-success text-decoration-none" id="save" href="">
+            Download Table
+        </a>
+    </div>
+    <section class="table">
+        <table class="table table-dark table-hover table-responsive table-sm" id="table">
+            <thead>
+            <tr>
+                <th scope="col" class="text-center" onclick="sorting(tbody01, 0)">Event type</th>
+                <th scope="col" class="text-center" onclick="sorting(tbody01, 1)">Time</th>
+                <th scope="col" class="text-center" onclick="sorting(tbody01, 2)">Abstract</th>
+            </tr>
+            </thead>
+            <tbody id="tbody01">
+            @foreach($adminLogs as $adminLog)
+                <tr>
+                    <td class="text-center">{{ ucfirst($adminLog['verb']) }}</td>
+                    <td class="text-center">{{ $adminLog['created_at'] }}</td>
+                    <td class="text-center">{{ $adminLog['description'] }}</td>
+                </tr>
+            @endforeach
             </tbody>
-        @endforeach
-    </table>
-</section>
-</body>
+        </table>
+    </section>
+    @extends('layouts.scripts')
+@endsection
 
+@section('scripts')
+    @parent
+
+    <script type="text/javascript">
+        userDetails='';
+        $('table tbody tr').each(function(){
+            var detail='(';
+            $(this).find('td').each(function(){
+                detail+=$(this).html()+',';
+            });
+            detail=detail.substring(0,detail.length-1);
+            detail+=')';
+            userDetails+=detail+"\r\n";
+        });
+        var a=document.getElementById('save');
+        a.onclick=function(){
+            var a = document.getElementById("save");
+            var file = new Blob([userDetails], {type: 'text/plain'});
+            a.href = URL.createObjectURL(file);
+            a.download = "data.txt";
+        }
+    </script>
+@endsection
