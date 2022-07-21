@@ -2,57 +2,70 @@
 @extends('layouts.header')
 @extends('layouts.head')
 @section('content')
-    <h1 class="text-center">ADMIN LOGS</h1>
-    <p class="text-center text-muted">All actions about orders, refunds, products and clients</p>
-    <div class="navbar-nav ml-auto mx-auto">
-        <a class="text-center link-success text-decoration-none" id="save" href="">
-            Download Table
-        </a>
+    <div class="main-block">
+        <div class="info-block">
+            <h1 class="">ADMIN LOGS</h1>
+            <p class="text-muted">All actions about orders, refunds, products and clients</p>
+            <div class="navbar-nav ml-auto mx-auto">
+                13
+            </div>
+        </div>
+        <div class="table-block">
+            <div class="container">
+                <div class="table-responsive">
+                    <div class="table-wrapper">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    <input class="search-input" id='inputText' onkeyup='searchTable()' type='text' placeholder="Search">
+                                    <button class="btn btn-primary" onclick="exportTableToTXT('adminlogs.txt')">Export</button>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-striped table-hover" id="tableLog">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="allChecked" name="allChecked">
+                                </th>
+                                <th onclick="sorting(tbody01, 1)">Event Type</th>
+                                <th onclick="sorting(tbody01, 2)">Time</th>
+                                <th onclick="sorting(tbody01, 3)">Abstract</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody01">
+                            @foreach($adminLogs as $adminLog)
+                                <tr>
+                                    <td class="">
+                                        <input type="checkbox" id="checked" name="checked">
+                                    </td>
+                                    <td class="event-text {{$adminLog['verb']}}">{{ ucfirst($adminLog['verb']) }}</td>
+                                    <td class="created-date">{{ $adminLog['created_at'] }}</td>
+                                    <td class="description-text">
+                                        {{ $adminLog['description'] }}
+                                    </td>
+                                    @if(!empty($adminLog['path']))
+                                        <td>
+                                            <a href="https://custom-admine-application.myshopify.com{{ $adminLog['path'] }}"
+                                               target="_blank">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <section class="table">
-        <table class="table table-dark table-hover table-responsive table-sm" id="table">
-            <thead>
-            <tr>
-                <th scope="col" class="text-center" onclick="sorting(tbody01, 0)">Event type</th>
-                <th scope="col" class="text-center" onclick="sorting(tbody01, 1)">Time</th>
-                <th scope="col" class="text-center" onclick="sorting(tbody01, 2)">Abstract</th>
-            </tr>
-            </thead>
-            <tbody id="tbody01">
-            @foreach($adminLogs as $adminLog)
-                <tr>
-                    <td class="text-center">{{ ucfirst($adminLog['verb']) }}</td>
-                    <td class="text-center">{{ $adminLog['created_at'] }}</td>
-                    <td class="text-center">{{ $adminLog['description'] }}</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </section>
+
     @extends('layouts.scripts')
 @endsection
 
 @section('scripts')
     @parent
-
-    <script type="text/javascript">
-        userDetails='';
-        $('table tbody tr').each(function(){
-            var detail='';
-            $(this).find('td').each(function(){
-                detail+=$(this).html()+' | ';
-            });
-            detail=detail.substring(0,detail.length-1);
-            detail+='';
-            userDetails+=detail+"\r\n";
-        });
-        var a=document.getElementById('save');
-        a.onclick=function(){
-            var a = document.getElementById("save");
-            var file = new Blob([userDetails], {type: 'text/plain'});
-            a.href = URL.createObjectURL(file);
-            let utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
-            a.download = 'adminlogs-' + utc + '.txt';
-        }
-    </script>
 @endsection

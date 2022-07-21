@@ -3,8 +3,12 @@
 @extends('layouts.head')
 
 @section('content')
-    <h1 class="text-center logged-text">You are logged in {{ $shopDomain ?? Auth::user()->name }} log panel</h1>
-    <p class="text-center">Select the option from navigation bar</p>
+    <div class="container-block">
+        <div class="logged-block">
+            <h1 class="text-center logged-text">You are logged in {{ $shopDomain ?? Auth::user()->name }} log panel</h1>
+            <p class="text-center">Select the option from navigation bar</p>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\Authenticate;
 use App\Http\Repository\AdminLogRepository;
 use Illuminate\Http\Request;
-use App\Models\AdminLog;
 use Illuminate\Support\Facades\Auth;
 
 class AdminLogController extends Controller
