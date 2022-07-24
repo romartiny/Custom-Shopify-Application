@@ -45,7 +45,3 @@ function compareCells(a,b) {
         }
     }
 }
-
-// window.onload = function() {
-//     sorting(tbody01, 2);
-// }
