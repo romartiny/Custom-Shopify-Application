@@ -2,62 +2,77 @@
 @extends('layouts.header')
 @extends('layouts.head')
 @section('content')
-    <h1 class="text-center">STAFF LOGS</h1>
-    <p class="text-center text-muted">All staff actions</p>
-    <div class="navbar-nav ml-auto mx-auto">
-        <a class="text-center link-success text-decoration-none" id="save" href="">
-            Download Table
-        </a>
+    <div class="main-block">
+        <div class="info-block">
+            <h1 class="main-text">STAFF LOGS</h1>
+            <p class="text-muted text-center">All staff actions</p>
+        </div>
+        <div class="table-block">
+            <div class="container">
+                <div class="table-responsive">
+                    <div class="table-wrapper">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    <input class="search-input" id='inputText' onkeyup='searchTable()'
+                                           type='text' placeholder="Search...">
+                                    <button class="btn btn-primary"
+                                            onclick="exportTableToTXT('stafflogs.txt')">Export
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <table class="table table-striped table-hover" id="tableLog">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" id="select-all" name="select-all">
+                                    </th>
+                                    <th onclick="sorting(tbody01, 1)">Date</th>
+                                    <th onclick="sorting(tbody01, 2)">Author</th>
+                                    <th onclick="sorting(tbody01, 3)">Operation</th>
+                                    <th onclick="sorting(tbody01, 4)">Abstract</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody id="tbody01">
+                                @foreach($staffLogs as $staffLog)
+                                    @if($staffLog['author'] !== 'Shopify')
+                                    <tr>
+                                        <td class="">
+                                            <input type="checkbox" id="checked-box" name="checked-box">
+                                        </td>
+                                        <td class="created-date">{{ $staffLog['created_at'] }}</td>
+                                        <td class="author">{{ ucfirst($staffLog['author']) }}</td>
+                                        <td class="event-text {{$staffLog['verb']}}">{{ ucfirst($staffLog['verb']) }}</td>
+                                        <td class="description-text">
+                                            {{ $staffLog['description'] }}
+                                        </td>
+                                        <td>
+                                            @if(!empty($staffLog['path']))
+                                                <a href="https://custom-admine-application.myshopify.com{{ $staffLog['path'] }}"
+                                                   target="_blank">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endif
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @extends('layouts.modalwindow')
     </div>
-    <section class="table">
-        <table class="table table-dark table-hover table-responsive table-sm" id="table">
-            <thead>
-            <tr>
-                <th scope="col" class="text-center" onclick="sorting(tbody01, 0)">Date</th>
-                <th scope="col" class="text-center" onclick="sorting(tbody01, 1)">Author</th>
-                <th scope="col" class="text-center" onclick="sorting(tbody01, 2)">Operation</th>
-                <th scope="col" class="text-center" onclick="sorting(tbody01, 3)">Abstract</th>
-            </tr>
-            </thead>
-            <tbody id="tbody01">
-                    @foreach($staffLogs as $staffLog)
-                        @if($staffLog['author'] !== 'Shopify')
-                            <tr>
-                                <td class="text-center">{{ $staffLog['created_at'] }}</td>
-                                <td class="text-center">{{ ucfirst($staffLog['author']) }}</td>
-                                <td class="text-center">{{ ucfirst($staffLog['verb']) }}</td>
-                                <td class="text-center">{{ $staffLog['description'] }}</td>
-                            </tr>
-                        @endif
-                    @endforeach
-            </tbody>
-        </table>
-    </section>
+
     @extends('layouts.scripts')
 @endsection
 
 @section('scripts')
     @parent
-
-    <script type="text/javascript">
-        userDetails = '';
-        $('table tbody tr').each(function () {
-            var detail = '';
-            $(this).find('td').each(function () {
-                detail += $(this).html() + ' | ';
-            });
-            detail = detail.substring(0, detail.length - 1);
-            detail += '';
-            userDetails += detail + "\r\n";
-        });
-        var a = document.getElementById('save');
-        a.onclick = function () {
-            var a = document.getElementById("save");
-            var file = new Blob([userDetails], {type: 'text/plain'});
-            a.href = URL.createObjectURL(file);
-            let utc = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-            a.download = 'stafflogs-' + utc + '.txt';
-        }
-    </script>
 @endsection
-

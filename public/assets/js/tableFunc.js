@@ -36,4 +36,11 @@ window.onload = function() {
         document.getElementsByClassName('description-text')[i].innerHTML = rep;
     }
 
+    document.getElementById('select-all').onclick = function() {
+        let checkboxes = document.getElementsByName('checked-box');
+        for (let checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+        }
+    }
+
 }

@@ -10,6 +10,14 @@
     padding-top: 30px;
 }
 
+.main-text {
+    text-align: center;
+}
+
+.table-title .create {
+    color: green;
+}
+
 .main-block {
     display: flex;
     flex-direction: row;
@@ -28,12 +36,12 @@ body {
     margin: 30px 0;
 }
 .table-wrapper {
-    width: 800px;
+    width: 680px;
     min-width: 450px;
     background: #fff;
     padding: 20px 25px;
-    border-radius: 3px;
-    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    border-radius: 20px;
+    box-shadow: 0 3px 4px rgb(0 0 0 / 5%);
 }
 .table-title {
     padding-bottom: 15px;
@@ -54,10 +62,9 @@ body {
     background: #fff;
     border: none;
     min-width: 50px;
-    border-radius: 2px;
-    border: none;
     outline: none !important;
     margin-left: 10px;
+    border-radius: 6px;
 }
 .table-title .btn:hover, .table-title .btn:focus {
     color: #566787;
@@ -80,9 +87,27 @@ table.table tr th, table.table tr td {
 table.table tr th {
     width: 10px;
 }
-/*table.table tr th:last-child {*/
-/*    width: 100px;*/
-/*}*/
+
+.create {
+    color: green !important;
+}
+
+.published {
+    color: orangered !important;
+}
+
+.create {
+    color: midnightblue !important;
+}
+
+.status_changed {
+    color: steelblue !important;
+}
+
+.destroy {
+    color: red !important;
+}
+
 table.table-striped tbody tr:nth-of-type(odd) {
     background-color: #fcfcfc;
 }
@@ -182,4 +207,16 @@ table.table .avatar {
 .search-input {
     width: 150px;
     height: 32px;
+    border-radius: 5px;
+    border: 0;
+    padding-left: 14px;
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 380px;
+    overflow: auto;
+}
+.table-wrapper-scroll-y {
+    display: block;
 }

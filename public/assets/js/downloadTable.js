@@ -14,13 +14,24 @@ function downloadTXT(txt, filename) {
 function exportTableToTXT(filename) {
     let txt = [];
     let rows = document.querySelectorAll("table tr");
-    let utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+    let countChecked = 0;
+    let utc = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
     for (let i = 0; i < rows.length; i++) {
         let row = [], cols = rows[i].querySelectorAll("td, th");
-        for (let j = 0; j < cols.length; j++)
-            row.push(cols[j].innerText);
-        txt.push(row.join(" | "));
+        let checkboxes = rows[i].querySelectorAll('input[type="checkbox"]:checked');
+        for (let checkbox of checkboxes) {
+            if (checkbox.checked === true) {
+                for (let j = 0; j < cols.length; j++)
+                    row.push(cols[j].innerText);
+                txt.push(row.join(" | "));
+                countChecked = countChecked + 1;
+            }
+        }
     }
-
-    downloadTXT(txt.join("\n"),  utc + '-' + filename);
+    if (countChecked === 0) {
+        $("#exampleModal").modal('show');
+    } else {
+        downloadTXT(txt.join("\n"), utc + '-' + filename);
+    }
 }
+

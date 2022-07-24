@@ -2,59 +2,75 @@
 @extends('layouts.header')
 @extends('layouts.head')
 @section('content')
-    <h1 class="text-center">IMPORTANT LOGS</h1>
-    <p class="text-center text-muted">All data about created collections, products, blogs and etc</p>
-    <div class="navbar-nav ml-auto mx-auto">
-        <a class="text-center link-success text-decoration-none" id="save" href="">
-            Download Table
-        </a>
+    <div class="main-block">
+        <div class="info-block">
+            <h1 class="main-text">IMPORTANT LOGS</h1>
+            <p class="text-muted text-center">All data about created collections, products, blogs and etc</p>
+        </div>
+        <div class="table-block">
+            <div class="container">
+                <div class="table-responsive">
+                    <div class="table-wrapper">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    <input class="search-input" id='inputText' onkeyup='searchTable()'
+                                           type='text' placeholder="Search...">
+                                    <button class="btn btn-primary"
+                                            onclick="exportTableToTXT('importantlogs.txt')">Export
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <table class="table table-striped table-hover" id="tableLog">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" id="select-all" name="select-all">
+                                    </th>
+                                    <th onclick="sorting(tbody01, 1)">Event</th>
+                                    <th onclick="sorting(tbody01, 2)">Date</th>
+                                    <th onclick="sorting(tbody01, 3)">Author</th>
+                                    <th onclick="sorting(tbody01, 4)">Abstract</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody id="tbody01">
+                                @foreach($importantLogs as $importantLog)
+                                    <tr>
+                                        <td class="">
+                                            <input type="checkbox" id="checked-box" name="checked-box">
+                                        </td>
+                                        <td class="event-text">{{ ucfirst($importantLog['subject_type'])  }}</td>
+                                        <td class="created-date">{{ $importantLog['created_at']  }}</td>
+                                        <td class="author">{{ $importantLog['author'] }}</td>
+                                        <td class="description-text">
+                                            {{ ucfirst($importantLog['description']) }}
+                                        </td>
+                                        <td>
+                                            @if(!empty($importantLog['path']))
+                                                <a href="https://custom-admine-application.myshopify.com{{ $importantLog['path'] }}"
+                                                   target="_blank">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @extends('layouts.modalwindow')
     </div>
-    <section class="table">
-        <table class="table table-dark table-hover table-responsive table-sm">
-            <thead>
-            <tr>
-                <th scope="col" class="text-center" onclick="sorting(tbody01, 0)">Event</th>
-                <th scope="col" class="text-center" onclick="sorting(tbody01, 1)">Date</th>
-                <th scope="col" class="text-center" onclick="sorting(tbody01, 2)">Author</th>
-                <th scope="col" class="text-center" onclick="sorting(tbody01, 3)">Abstract</th>
-            </tr>
-            </thead>
-            <tbody id="tbody01">
-            @foreach($importantLogs as $importantLog)
-                <tr>
-                    <td class="text-center">{{ ucfirst($importantLog['subject_type'])  }}</td>
-                    <td class="text-center">{{ $importantLog['created_at']  }}</td>
-                    <td class="text-center">{{ $importantLog['author'] }}</td>
-                    <td class="text-center">{{ ucfirst($importantLog['description']) }}</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </section>
+
+    @extends('layouts.scripts')
 @endsection
-@extends('layouts.scripts')
 
 @section('scripts')
     @parent
-
-    <script type="text/javascript">
-        userDetails='';
-        $('table tbody tr').each(function(){
-            var detail='';
-            $(this).find('td').each(function(){
-                detail+=$(this).html()+' | ';
-            });
-            detail=detail.substring(0,detail.length-1);
-            detail+='';
-            userDetails+=detail+"\r\n";
-        });
-        var a=document.getElementById('save');
-        a.onclick=function(){
-            var a = document.getElementById("save");
-            var file = new Blob([userDetails], {type: 'text/plain'});
-            a.href = URL.createObjectURL(file);
-            let utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
-            a.download = 'importantlogs-' + utc + '.txt';
-        }
-    </script>
 @endsection
