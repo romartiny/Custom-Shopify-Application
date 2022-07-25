@@ -1,3 +1,3 @@
 function closeWindow() {
-    $("#exampleModal").modal('hide');
+    $("#modalWindow").modal('hide');
 }

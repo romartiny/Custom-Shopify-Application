@@ -1,8 +1,8 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+<div class="modal fade" id="modalWindow" tabindex="-1" aria-labelledby="modalLabel">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Export error</h5>
+                <h5 class="modal-title" id="modalLabel">Export error</h5>
                 <button type="button" class="btn-close" name="close" onclick="closeWindow()"
                         data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>

@@ -1,33 +1,29 @@
 var index;
-var toggleBool;
+let toggleBool;
 function sorting(tbody, index){
     this.index = index;
-    if(toggleBool){
-        toggleBool = false;
-    }else{
-        toggleBool = true;
-    }
+    toggleBool = !toggleBool;
 
-    var datas= new Array();
-    var tbodyLength = tbody.rows.length;
-    for(var i=0; i<tbodyLength; i++){
-        datas[i] = tbody.rows[i];
+    let table= [];
+    let tbodyLength = tbody.rows.length;
+    for(let i=0; i<tbodyLength; i++){
+        table[i] = tbody.rows[i];
     }
-    datas.sort(compareCells);
-    for(var i=0; i<tbody.rows.length; i++){
-        tbody.appendChild(datas[i]);
+    table.sort(compareCells);
+    for(let i=0; i<tbody.rows.length; i++){
+        tbody.appendChild(table[i]);
     }
 }
 
 function compareCells(a,b) {
-    var aVal = a.cells[index].innerText;
-    var bVal = b.cells[index].innerText;
+    let aVal = a.cells[index].innerText;
+    let bVal = b.cells[index].innerText;
 
     aVal = aVal.replace(/\,/g, '');
     bVal = bVal.replace(/\,/g, '');
 
     if(toggleBool){
-        var temp = aVal;
+        let temp = aVal;
         aVal = bVal;
         bVal = temp;
     }

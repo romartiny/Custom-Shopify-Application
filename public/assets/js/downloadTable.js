@@ -29,7 +29,7 @@ function exportTableToTXT(filename) {
         }
     }
     if (countChecked === 0) {
-        $("#exampleModal").modal('show');
+        $("#modalWindow").modal('show');
     } else {
         downloadTXT(txt.join("\n"), utc + '-' + filename);
     }

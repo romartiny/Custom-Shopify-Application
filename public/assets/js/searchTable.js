@@ -1,8 +1,8 @@
 function searchTable() {
-    var input, filter, found, table, tr, td, i, j;
+    let input, filter, found, table, tr, td, i, j;
     input = document.getElementById("inputText");
     filter = input.value.toUpperCase();
-    table = document.getElementById("tbody01");
+    table = document.getElementById("logs");
     tr = table.getElementsByTagName("tr");
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td");
