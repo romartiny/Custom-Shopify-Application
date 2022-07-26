@@ -219,3 +219,7 @@ table.table .avatar {
 .table-wrapper-scroll-y {
     display: block;
 }
+
+.main-item {
+    cursor: pointer;
+}

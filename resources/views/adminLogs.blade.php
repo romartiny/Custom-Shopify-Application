@@ -26,12 +26,12 @@
                             <table class="table table-striped table-hover" id="tableLog">
                                 <thead>
                                 <tr>
-                                    <th>
+                                    <th class="main-item">
                                         <input type="checkbox" id="select-all" name="select-all">
                                     </th>
-                                    <th onclick="sorting(logs, 1)">Event Type</th>
-                                    <th onclick="sorting(logs, 2)">Time</th>
-                                    <th onclick="sorting(logs, 3)">Abstract</th>
+                                    <th class="main-item" onclick="sorting(logs, 1)">Event Type</th>
+                                    <th class="main-item" onclick="sorting(logs, 2)">Time</th>
+                                    <th class="main-item" onclick="sorting(logs, 3)">Abstract</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -44,7 +44,10 @@
                                         <td class="event-text {{ $adminLog['verb'] }}">
                                             {{ ucfirst($adminLog['verb']) }}
                                         </td>
-                                        <td class="created-date">{{ $adminLog['created_at'] }}</td>
+                                        <td>
+                                            <p style="display: none">{{ $adminLog['created_at'] }}</p>
+                                            <p class="created-date">{{ $adminLog['created_at'] }}</p>
+                                        </td>
                                         <td class="description-text">{{ $adminLog['description'] }}</td>
                                         <td>
                                             @if(!empty($adminLog['path']))

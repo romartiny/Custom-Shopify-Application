@@ -26,12 +26,12 @@
                             <table class="table table-striped table-hover" id="tableLog">
                                 <thead>
                                 <tr>
-                                    <th>
+                                    <th class="main-item">
                                         <input type="checkbox" id="select-all" name="select-all">
                                     </th>
-                                    <th onclick="sorting(logs, 1)">File</th>
-                                    <th onclick="sorting(logs, 2)">Updated</th>
-                                    <th onclick="sorting(logs, 3)">Abstract</th>
+                                    <th class="main-item" onclick="sorting(logs, 1)">File</th>
+                                    <th class="main-item" onclick="sorting(logs, 2)">Updated</th>
+                                    <th class="main-item" onclick="sorting(logs, 3)">Abstract</th>
                                 </tr>
                                 </thead>
                                 <tbody id="logs">

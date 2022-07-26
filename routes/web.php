@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminLogController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::middleware(['verify.shopify'])->group(function () {
     Route::get('/', function () {
         return view('welcome');

@@ -17,7 +17,7 @@ window.onload = function() {
             ? 0 + customDate.getSeconds().toString() : customDate.getSeconds().toString();
         if (dd+mm+yyyy === day+month+year) {
             document.getElementsByClassName('created-date')[i].innerHTML =
-                hour+':'+minute+':'+second;
+                'Today '+hour+':'+minute+':'+second;
         } else {
             document.getElementsByClassName('created-date')[i].innerHTML =
                 day+"-"+month+"-"+year+' '+hour+':'+minute+':'+second;
