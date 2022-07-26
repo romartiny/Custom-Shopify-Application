@@ -43,7 +43,3 @@ function compareCells(a, b) {
         }
     }
 }
-
-function timeSort() {
-
-}
