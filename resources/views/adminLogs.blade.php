@@ -45,7 +45,6 @@
                                             {{ ucfirst($adminLog['verb']) }}
                                         </td>
                                         <td>
-                                            <p style="display: none">{{ $adminLog['created_at'] }}</p>
                                             <p class="created-date">{{ $adminLog['created_at'] }}</p>
                                         </td>
                                         <td class="description-text">{{ $adminLog['description'] }}</td>

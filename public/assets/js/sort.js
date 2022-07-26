@@ -6,8 +6,6 @@ function sorting(tbody, index) {
     toggleBool = !toggleBool;
 
     let table = [];
-    let rows = document.getElementsByClassName("created-date");
-    console.log(rows);
     let tbodyLength = tbody.rows.length;
     for (let i = 0; i < tbodyLength; i++) {
         table[i] = tbody.rows[i];
