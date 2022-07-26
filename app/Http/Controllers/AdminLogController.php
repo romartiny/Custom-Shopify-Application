@@ -25,7 +25,7 @@ class AdminLogController extends Controller
     {
         $adminLogs = $this->_adminLogRepository->getAdminLogs($this->authUser());
 
-        return view('adminlogs', [
+        return view('adminLogs', [
             'adminLogs' => $adminLogs['body']['container']['events']
         ]);
     }
@@ -34,7 +34,7 @@ class AdminLogController extends Controller
     {
         $themeLogs = $this->_adminLogRepository->getThemeLogs($this->authUser());
 
-        return view('themelogs', [
+        return view('themeLogs', [
             'themeLogs' => $themeLogs['body']['container']['themes']
         ]);
     }
@@ -43,7 +43,7 @@ class AdminLogController extends Controller
     {
         $importantLogs = $this->_adminLogRepository->getImportantLogs($this->authUser());
 
-        return view('importantlogs', [
+        return view('importantLogs', [
             'importantLogs' => $importantLogs['body']['container']['events']
         ]);
     }
@@ -52,7 +52,7 @@ class AdminLogController extends Controller
     {
         $staffLogs = $this->_adminLogRepository->getStaffLogs($this->authUser());
 
-        return view('stafflogs', [
+        return view('staffLogs', [
             'staffLogs' => $staffLogs['body']['container']['events']
         ]);
     }

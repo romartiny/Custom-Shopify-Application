@@ -31,7 +31,7 @@ function exportTableToTXT(filename) {
     if (countChecked === 0) {
         $("#modalWindow").modal('show');
     } else {
-        downloadTXT(txt.join("\n"), utc + '-' + filename);
+        downloadTXT(txt.join("\n"), utc + '-' + filename + '.txt');
     }
 }
 
