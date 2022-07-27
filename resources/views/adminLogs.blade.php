@@ -44,9 +44,7 @@
                                         <td class="event-text {{ $adminLog['verb'] }}">
                                             {{ ucfirst($adminLog['verb']) }}
                                         </td>
-                                        <td>
-                                            <p class="created-date">{{ $adminLog['created_at'] }}</p>
-                                        </td>
+                                        <td class="created-date">{{ $adminLog['created_at'] }}</td>
                                         <td class="description-text">{{ $adminLog['description'] }}</td>
                                         <td>
                                             @if(!empty($adminLog['path']))

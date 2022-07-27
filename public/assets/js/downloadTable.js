@@ -14,6 +14,7 @@ function downloadTXT(txt, filename) {
 function exportTableToTXT(filename) {
     let txt = [];
     let rows = document.querySelectorAll("table tr");
+    let modal = document.querySelector(".modal")
     let countChecked = 0;
     let utc = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
     for (let i = 0; i < rows.length; i++) {
@@ -29,7 +30,7 @@ function exportTableToTXT(filename) {
         }
     }
     if (countChecked === 0) {
-        $("#modalWindow").modal('show');
+        modal.style.display = "block"
     } else {
         downloadTXT(txt.join("\n"), utc + '-' + filename + '.txt');
     }
